@@ -1,0 +1,19 @@
+{
+  "name": "sq",
+  "displayName": "SQ Syntax Highlighter",
+  "version": "0.0.1",
+  "engines": { "vscode": "^1.50.0" },
+  "categories": ["Programming Languages", "Snippets"],
+  "contributes": {
+    "languages": [{
+      "id": "sq",
+      "aliases": ["sql", "sq", "db"],
+      "extensions": [".sq"]
+    }],
+    "grammars": [{
+      "language": "sq",
+      "scopeName": "source.sq",
+      "path": "./syntaxes/schema.tmLanguage.json"
+    }]
+  }
+}

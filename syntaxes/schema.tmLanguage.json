@@ -1,0 +1,36 @@
+{
+  "scopeName": "source.sq",
+  "patterns": [
+    { "match": "(<\\w+)|(@)|(Backup|Destroy)|('[^']*')|(>)" ,
+      "captures": {
+        "1": { "name": "keyword.control.table" },
+        "2": { "name": "support.function" },
+        "3": { "name": "variable.name" },
+        "4": { "name": "string.regexp" },
+        "5": { "name": "keyword.control.table" }
+      }
+    },
+    { "name": "variable.name", "match": "^\\s*[a-zA-Z_][a-zA-Z0-9_]*(?=:)" },
+    { "name": "variable.other.constant", "match": "(Primary|Nullable)" },
+    { "name": "comment.line.double-slash", "match": "\/\/\\s*\\w+" },
+    
+	{
+      "match": "(:|,)\\s*(Integer|String|Boolean)|(Numeric|Float|DateTime)",
+      "captures": {
+        "1": { "name": "punctuation.separator" },
+        "2": { "name": "support.type" },
+		"3": { "name": "invalid" }
+      }
+    },
+	{
+  "match": "(->)\\s*(?:(\"[^\"]*\")|('[^']*')|(\\d+)|(True|False|None))",
+  "captures": {
+    "1": { "name": "variable.other.constant" },
+    "2": { "name": "string.quoted.double" },
+    "3": { "name": "string.quoted.single" },
+    "4": { "name": "constant.numeric" },
+    "5": { "name": "keyword" }
+	  }
+	}
+  ]
+}

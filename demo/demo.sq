@@ -1,0 +1,22 @@
+<Table@'person'>
+    id: Integer, Primary
+    first_name: Text
+    last_name: Text
+    age: Integer
+    eye_color: Text -> "test"
+    is_single: Boolean -> None
+    email: Text, Nullable
+    phone_number: Text, Nullable
+    street: Text
+    house_number: Integer
+    city: Text
+    postal_code: Integer
+    country: Text -> "Germany"
+    job_title: Text
+    salary: Integer
+    last_login: Text
+    account_status: Text -> "active"
+    loyalty_points: Integer -> 0
+    is_admin: Boolean -> False
+    notes: Text, Nullable
+    what_have_i_done: Numeric
