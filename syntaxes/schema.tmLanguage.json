@@ -22,6 +22,33 @@
 		"3": { "name": "invalid" }
       }
     },
+  {
+      "match": "(\\w+)(\\(\\w*\\))(:)",
+      "captures": {
+        "1": { "name": "support.function" },
+        "2": { "name": "support.other" },
+		    "3": { "name": "punctuation.separator" },
+		    "4": { "name": "invalid" }
+      }
+    },
+  {
+  "name": "meta.expression.access",
+  "begin": "\\b(main|self)\\b",
+  "beginCaptures": {
+    "1": { "name": "keyword" }
+  },
+  "end": "(?=[^\\w.])", 
+  "patterns": [
+    {
+      "match": "\\.",
+      "name": "punctuation.separator.period"
+    },
+    {
+      "match": "\\b\\w+\\b",
+      "name": "support.function"
+    }
+  ]
+},
 	{
   "match": "(->)\\s*(?:(\"[^\"]*\")|('[^']*')|(\\d+)|(True|False|None))",
   "captures": {

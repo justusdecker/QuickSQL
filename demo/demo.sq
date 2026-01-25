@@ -1,22 +1,41 @@
-<Table@'person'>
-    id: Integer, Primary
-    first_name: Text
-    last_name: Text
-    age: Integer
-    eye_color: Text -> "test"
-    is_single: Boolean -> None
-    email: Text, Nullable
-    phone_number: Text, Nullable
-    street: Text
-    house_number: Integer
-    city: Text
-    postal_code: Integer
-    country: Text -> "Germany"
-    job_title: Text
-    salary: Integer
-    last_login: Text
-    account_status: Text -> "active"
-    loyalty_points: Integer -> 0
-    is_admin: Boolean -> False
-    notes: Text, Nullable
-    what_have_i_done: Numeric
+<use@'declarative_base'>
+<Database@'sql' Backup Destroy>
+    url: "sqlite:///qsql.db"
+    engine: create_engine(self.url)
+    base: declarative_base()
+    
+<Table@'letsplays'>
+    // Comment
+    id: Integer, Primary, Nullable
+    tad_path: String
+    name: String
+    game_name: String
+    episode_length: Integer
+    description_path: String
+    jitle: String
+    emoji: String
+    on_commit(): main.get_element() 
+    on_create(): main.get_element()
+    on_read(): main.get_element()
+    on_update(): main.get_element()
+    on_delete(): main.get_element()
+<Table@'episodes'>
+    id: Integer, Primary, Nullable
+    lpid: Integer -> 0
+    video_path: String -> "Text"
+    audio_mic_path: String
+    audio_desktop_path: String
+    thumbnail_path: String
+    has_problem: Boolean
+    audio_mic_edit_path: String
+    title: String
+    upload_at: String
+    final_video_path: String
+<Build@'sql'>
+<FillManually@'sql.letsplays'>
+    x, 123, ...
+<FillRandom@'sql'>
+<Output@'sql.letsplays'>
+<Script@'get_element' value>
+    hashed_password: encrypt_method(value)
+    return value

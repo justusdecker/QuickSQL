@@ -13,33 +13,101 @@ work in progress
 
 ## Documentation
 
-Pay attention to the indentation: `root` for table inits and `4 spaces` for columns.
+![Nah](./demo/highlighter.png)
 
-### Table Initialization
+### Core Syntax & Structure
 
-`<Table@'table_name'>`
+The language uses a tag-based system for defining blocks and a key-value system for attributes.
 
-### Columns
+* Blocks: Defined by angle brackets `<Tag@'Identifier' Options>`.
 
-`var_name: type`
+* Comments: Single-line comments start with `//`.
 
-`var_name: type -> default_val`
+* Indentation: Content inside tags is indented to denote scope.
 
-### Usage of sqlalchemy classes and functions
+* Strings: Must be enclosed in double quotes (e.g., `"sqlite:///qsql.db"`).
 
-`use <module_or_func>`
+### Global Imports (`<use@>`)
 
-### Database Declaration
+The <use@'module'> tag is used to import python dependencies required for the script's execution environment.
 
-`<Database@'sql_name'>`
+Example: `<use@'sqlalchemy.declarative_base'>` loads the standard ORM mapping base.
 
-### A quick Demo
-![Nah](./demo/highlighter.PNG)
+### Database Configuration (`<Database@>`)
 
-will result in:
+Defines the connection and behavior of the data store.
 
+* Identifier: Usually the driver type (e.g., 'sql').
 
+* Flags: Optional parameters like Backup (auto-backup) or Destroy (drop existing data on start).
 
+* Required Attributes:
+
+    * url: The connection string.
+
+    * engine: The initialization command for the DB driver.
+
+    * base: The declarative base for tables.
+
+### Table Definitions (`<Table@>`)
+
+Defines the schema for a database table. Columns are defined line-by-line using the following syntax: `name: Type, [Modifiers] [-> DefaultValue]`
+
+|Feature|Syntax|Description|
+|---|---|---|
+|Type|`Integer, String, Boolean`|Defines the data type.
+|Modifiers|`Primary, Nullable`|Defines constraints (Primary Key, allows Null).
+|Default Value|`-> value`|Assigns a default value if none is provided.
+
+#### Event Hooks
+
+Tables support lifecycle hooks using the fat arrow => syntax:
+
+* on_commit: Executes after data is saved.
+* on_read: Executes when data is queried.
+* on_create: Executes on row insertion.
+* on_delete: Executes on row removal.
+* on_update: Executes on row update.
+
+### Execution & Data Commands
+
+These tags perform actions based on the defined schemas.
+
+* `<Build@'sql'>`: Compiles the schema and creates the physical tables in the database.
+
+* `<FillManually@'table'>`: Starts a manual data entry block. Values are comma-separated.
+
+* `<FillRandom@'sql'>`: Automatically populates tables with dummy data for testing.
+
+* `<Output@'table'>`: Fetches and displays the contents of the specified table.
+
+### Functional Scripting (`<Script@>`)
+
+Defines logic or transformations that can be applied to data.
+
+* Syntax: `<Script@'name' parameter>`
+
+* Logic: Can include function calls and variable assignments.
+
+* Return: Uses the return keyword to pass a value back to the caller.
+
+Example:
+
+```
+<Script@'get_element' value>
+    hashed_password: encrypt_method(value)
+    return value
+```
+
+### Operators
+
+|Operator|Usage|
+|---|---|
+|:|Assigns a type or value to a property.|
+|@|Defines the scope or identifier of a tag.|
+|->|Assigns a default value to a column.|
+|=>|Maps a trigger/hook to a specific function.|
+|,|Separates modifiers or list values.|
 
 ![Nah](./demo/sheader.png)
 
