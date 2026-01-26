@@ -13,7 +13,7 @@ work in progress
 
 ## Documentation
 
-![Nah](./demo/highlighter.png)
+![Nah](./demo/highlighter.PNG)
 
 ### Core Syntax & Structure
 

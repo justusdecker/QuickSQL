@@ -1,8 +1,15 @@
-<use@'declarative_base'>
+<Enable@'CREATE_DOCSTRINGS'>
+<Enable@'CREATE_ACCESSOR'>
+<Custom>
+    >
+    def get_element(*_):
+        print("Hello World")
+    <
+<Use@'./other_file.qsql'>
 <Database@'sql' Backup Destroy>
     url: "sqlite:///qsql.db"
-    engine: create_engine(self.url)
-    base: declarative_base()
+    engine: sql.create_engine(main.url)
+    base: sql.declarative_base()
     
 <Table@'letsplays'>
     // Comment
@@ -15,8 +22,8 @@
     jitle: String
     emoji: String
     on_commit(): main.get_element() 
-    on_create(): main.get_element()
-    on_read(): main.get_element()
+    on_create(): main.get_element.rwe(w)
+    on_read(): main.get_element(main)
     on_update(): main.get_element()
     on_delete(): main.get_element()
 <Table@'episodes'>
@@ -32,10 +39,8 @@
     upload_at: String
     final_video_path: String
 <Build@'sql'>
-<FillManually@'sql.letsplays'>
-    x, 123, ...
-<FillRandom@'sql'>
+<Fill@'sql.letsplays' FillRandom FillShort FillLong>
 <Output@'sql.letsplays'>
 <Script@'get_element' value>
-    hashed_password: encrypt_method(value)
-    return value
+    hashed_password= main.encrypt_method(value)
+    return hashed_password

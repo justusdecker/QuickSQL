@@ -1,63 +1,163 @@
 {
   "scopeName": "source.sq",
   "patterns": [
-    { "match": "(<\\w+)|(@)|(Backup|Destroy)|('[^']*')|(>)" ,
-      "captures": {
+    {
+      "name": "meta.tag.custom",
+      "begin": "(<)(\\w+)",
+      "beginCaptures": {
         "1": { "name": "keyword.control.table" },
-        "2": { "name": "support.function" },
-        "3": { "name": "variable.name" },
-        "4": { "name": "string.regexp" },
-        "5": { "name": "keyword.control.table" }
+        "2": { "name": "keyword.control.table" }
+      },
+      "end": ">",
+      "endCaptures": {
+        "0": {
+          "name": "keyword.control.table"
+        }
+      },
+      "patterns": [
+        {
+          "match": "@",
+          "name": "support.function"
+        },
+        {
+          "match": "'[^']*'",
+          "name": "string.regexp"
+        },
+        {
+          "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b",
+          "name": "variable.name"
+        }
+      ]
+    },
+    {
+      "name": "meta.tag.custom",
+      "begin": "\\s{4}(>)",
+      "beginCaptures": {
+        "1": { "name": "string.quoted.double" }
+      },
+      "end": "\\s{4}(<)",
+      "endCaptures": {
+        "1": {
+          "name": "string.quoted.double"
+        }
+      },
+      "patterns": [
+        {
+          "include": "source.python"
+        }
+      ]
+    },
+    {
+      "name": "variable.name",
+      "match": "^\\s*[a-zA-Z_][a-zA-Z0-9_]*(?=:)"
+    },
+    {
+      "name": "variable.name",
+      "match": "^\\s*[a-zA-Z_][a-zA-Z0-9_]*(?=\\=)"
+    },
+    {
+      "match": "\\s{4}(return)\\s([a-zA-Z_][a-zA-Z0-9_]*)",
+      "captures": {
+        "1": {
+          "name": "keyword.control.table"
+        },
+        "2": {
+          "name": "variable.name"
+        }
       }
     },
-    { "name": "variable.name", "match": "^\\s*[a-zA-Z_][a-zA-Z0-9_]*(?=:)" },
-    { "name": "variable.other.constant", "match": "(Primary|Nullable)" },
-    { "name": "comment.line.double-slash", "match": "\/\/\\s*\\w+" },
-    
-	{
+    {
+      "name": "variable.other.constant",
+      "match": "(Primary|Nullable)"
+    },
+    {
+      "name": "comment.line.double-slash",
+      "match": "\/\/\\s*\\w+"
+    },
+    {
       "match": "(:|,)\\s*(Integer|String|Boolean)|(Numeric|Float|DateTime)",
       "captures": {
-        "1": { "name": "punctuation.separator" },
-        "2": { "name": "support.type" },
-		"3": { "name": "invalid" }
+        "1": {
+          "name": "punctuation.separator"
+        },
+        "2": {
+          "name": "support.type"
+        },
+        "3": {
+          "name": "invalid"
+        }
       }
     },
-  {
+    {
       "match": "(\\w+)(\\(\\w*\\))(:)",
       "captures": {
-        "1": { "name": "support.function" },
-        "2": { "name": "support.other" },
-		    "3": { "name": "punctuation.separator" },
-		    "4": { "name": "invalid" }
+        "1": {
+          "name": "support.function"
+        },
+        "2": {
+          "name": "support.other"
+        },
+        "3": {
+          "name": "punctuation.separator"
+        },
+        "4": {
+          "name": "invalid"
+        }
       }
     },
-  {
-  "name": "meta.expression.access",
-  "begin": "\\b(main|self)\\b",
-  "beginCaptures": {
-    "1": { "name": "keyword" }
-  },
-  "end": "(?=[^\\w.])", 
-  "patterns": [
     {
-      "match": "\\.",
-      "name": "punctuation.separator.period"
+      "name": "meta.expression.access",
+      "begin": "\\b(main|self|sql)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword"
+        }
+      },
+      "end": "(?=[^\\w.()])",
+      "patterns": [
+        {
+          "match": "\\.",
+          "name": "punctuation.separator.period"
+        },
+        {
+          "match": "\\b\\w+\\b",
+          "name": "support.function"
+        },
+        {
+          "match": "(\\()(\\w*)(\\))",
+          "captures": {
+            "1": {
+              "name": "support.other"
+            },
+            "2": {
+              "name": "variable.name"
+            },
+            "3": {
+              "name": "support.other"
+            }
+          }
+        }
+      ]
     },
     {
-      "match": "\\b\\w+\\b",
-      "name": "support.function"
+      "match": "(->)\\s*(?:(\"[^\"]*\")|('[^']*')|(\\d+)|(True|False|None))",
+      "captures": {
+        "1": {
+          "name": "variable.other.constant"
+        },
+        "2": {
+          "name": "string.quoted.double"
+        },
+        "3": {
+          "name": "string.quoted.single"
+        },
+        "4": {
+          "name": "constant.numeric"
+        },
+        "5": {
+          "name": "keyword"
+        }
+      }
     }
-  ]
-},
-	{
-  "match": "(->)\\s*(?:(\"[^\"]*\")|('[^']*')|(\\d+)|(True|False|None))",
-  "captures": {
-    "1": { "name": "variable.other.constant" },
-    "2": { "name": "string.quoted.double" },
-    "3": { "name": "string.quoted.single" },
-    "4": { "name": "constant.numeric" },
-    "5": { "name": "keyword" }
-	  }
-	}
   ]
 }
