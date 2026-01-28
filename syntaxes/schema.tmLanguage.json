@@ -107,7 +107,7 @@
     },
     {
       "name": "meta.expression.access",
-      "begin": "\\b(main|self|sql)\\b",
+      "begin": "\\b(self|sql|main)\\b",
       "beginCaptures": {
         "1": {
           "name": "keyword"

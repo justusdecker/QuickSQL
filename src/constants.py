@@ -1,0 +1,1 @@
+TABLE = r"\s{4}([a-zA-Z_][a-zA-Z0-9_]*)((:|,)\s*(Integer|String|Boolean|Numeric|Float|DateTime))(?:(:|,)\s*(Primary|Nullable))?(?:(:|,)\s*(Primary|Nullable))?(?:\s*(?:->)\s*(?:(\"[^\"]*\")|('[^']*')|(\d+)|(True|False|None)))?"
